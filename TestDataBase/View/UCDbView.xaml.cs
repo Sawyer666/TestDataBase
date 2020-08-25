@@ -41,7 +41,7 @@ namespace TestDataBase.View
                 return;
             if (VM.VMMode == Mode.Insert)
             {
-                int res = await VM.AddNewMessage(txbx.Text, null);
+                int res = await VM.AddNewMessage(txbx.Text);
                 if (res == 0)
                     txbx.Clear();
             }

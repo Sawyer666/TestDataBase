@@ -85,7 +85,7 @@ namespace TestDataBase.ViewModel
 		/// <param name="text"></param>
 		/// <param name="UpdateViewHandler"></param>
 		/// <returns></returns>
-		public async Task<int> AddNewMessage(string text, Action UpdateViewHandler)
+		public async Task<int> AddNewMessage(string text)
 		{
 			return await Task<int>.Factory.StartNew(() =>
 			   {
@@ -93,7 +93,6 @@ namespace TestDataBase.ViewModel
 				   if (cmd.Execute() == 0)
 				   {
 					   GetRecordList();
-					   UpdateViewHandler?.Invoke();
 					   return 0;
 				   }
 				   return -1;
