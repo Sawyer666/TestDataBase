@@ -1,4 +1,5 @@
-﻿using Npgsql;
+﻿using Dapper;
+using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,16 +16,25 @@ namespace TestDataBase.Model
         /// <returns></returns>
         public List<DbRecord> GetRecords()
         {
-            //  int r = InsertRow(null);
             List<DbRecord> records = new List<DbRecord>();
-            using (var con = new NpgsqlConnection(connection))
+            NpgsqlConnection con = new NpgsqlConnection(connection);
+            try
             {
                 con.Open();
                 var rdr = new NpgsqlCommand("SELECT Messages.Id, Messages.Message,LogMessages.CurrentTime from Messages JOIN LogMessages ON Messages.Id = LogMessages.MesasgeId;", con).ExecuteReader();
+                //     var t = con.Query<DbRecord>("SELECT Messages.Id, Messages.Message,LogMessages.CurrentTime from Messages JOIN LogMessages ON Messages.Id = LogMessages.MesasgeId").ToList();
                 while (rdr.Read())
                 {
                     records.Add(new DbRecord(Convert.ToInt32(rdr[0].ToString()), rdr[1].ToString(), Convert.ToDateTime(rdr[2].ToString())));
                 }
+            }
+            catch (Exception)
+            {
+
+            }
+            finally
+            {
+                con = null;
             }
             return records;
         }
@@ -75,6 +85,6 @@ namespace TestDataBase.Model
                     con.Dispose();
             }
             return true;
-        }   
+        }
     }
 }
