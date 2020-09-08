@@ -9,9 +9,9 @@ namespace TestDataBase.Command
 {
     class ReadRecordsCommand : DbCommand<List<DbRecord>>
     {
-        DbAccess dbAccess;
+        DbBase dbAccess;
 
-        public ReadRecordsCommand(DbAccess db)
+        public ReadRecordsCommand(DbBase db)
         {
             dbAccess = db;
         }

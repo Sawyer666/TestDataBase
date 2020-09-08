@@ -32,7 +32,9 @@ namespace TestDataBase.View
         public UCDbView()
         {
             InitializeComponent();
-            this.DataContext = new DbViewModel();
+            var vm = new DbViewModel();
+            vm.SetDatabaseAbility(new DbDapperAccess());
+            this.DataContext = vm;
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
@@ -46,7 +48,7 @@ namespace TestDataBase.View
                     txbx.Clear();
             }
             else
-                await VM.UpdateMessage(VM.SelectedRecord.Id, txbx.Text);
+                await VM.UpdateMessage(new DbRecord(VM.SelectedRecord.Id, txbx.Text));
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

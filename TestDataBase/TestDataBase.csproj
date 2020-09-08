@@ -91,6 +91,7 @@
     </ApplicationDefinition>
     <Compile Include="Command\UpdateMessageCommand.cs" />
     <Compile Include="Model\DbBase.cs" />
+    <Compile Include="Model\DbDapperAccess.cs" />
     <Compile Include="View\ComboBoxItemTemplateSelector.cs" />
     <Compile Include="View\UCDbView.xaml.cs">
       <DependentUpon>UCDbView.xaml</DependentUpon>

@@ -18,6 +18,11 @@ namespace TestDataBase.Model
             Message = message;
             Visible = false;
         }
+        public DbRecord(int id, string message)
+        {
+            Id = id;
+            Message = message;
+        }
         public DbRecord(int id, string message, DateTime currentTime)
         {
             Id = id;

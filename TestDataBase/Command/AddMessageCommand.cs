@@ -9,9 +9,9 @@ namespace TestDataBase.Command
 {
     public class AddMessageCommand : DbCommand<int>
     {
-        DbAccess dbAccess;
+        DbBase dbAccess;
         DbRecord record = null;
-        public AddMessageCommand(DbAccess db, DbRecord rc)
+        public AddMessageCommand(DbBase db, DbRecord rc)
         {
             dbAccess = db;
             record = rc;

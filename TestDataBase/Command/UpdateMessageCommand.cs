@@ -9,20 +9,18 @@ namespace TestDataBase.Command
 {
     public class UpdateMessageCommand : DbCommand<bool>
     {
-        DbAccess dbAccess;
-        int id = 0;
-        string message = String.Empty;
+        DbBase dbAccess;
+        DbRecord rec = null;
 
-        public UpdateMessageCommand(DbAccess db, int searchParam, string newMessage)
+        public UpdateMessageCommand(DbBase db, DbRecord record)
         {
             dbAccess = db;
-            id = searchParam;
-            message = newMessage;
+            rec = record;
         }
         public override bool Execute()
         {
             if (dbAccess != null)
-                return dbAccess.UpdateRow(id, message);
+                return dbAccess.UpdateRow(rec);
             return false;
         }
     }

@@ -14,7 +14,7 @@ namespace TestDataBase.Model
         /// get messages from database
         /// </summary>
         /// <returns></returns>
-        public List<DbRecord> GetRecords()
+        public override List<DbRecord> GetRecords()
         {
             List<DbRecord> records = new List<DbRecord>();
             NpgsqlConnection con = new NpgsqlConnection(connection);
@@ -63,7 +63,7 @@ namespace TestDataBase.Model
 
         }
 
-        public override bool UpdateRow(int id, string text)
+        public override bool UpdateRow(DbRecord record)
         {
             NpgsqlConnection con = null;
             try
@@ -71,8 +71,8 @@ namespace TestDataBase.Model
                 con = new NpgsqlConnection(connection);
                 con.Open();
                 NpgsqlCommand cmd = new NpgsqlCommand("UPDATE messages SET Message=@Message WHERE Id =@Id", con);
-                cmd.Parameters.AddWithValue("Id", id);
-                cmd.Parameters.AddWithValue("Message", text);
+                cmd.Parameters.AddWithValue("Id", record.Id);
+                cmd.Parameters.AddWithValue("Message", record.Message);
                 cmd.ExecuteNonQuery();
             }
             catch (NpgsqlException)
