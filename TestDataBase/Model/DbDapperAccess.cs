@@ -31,16 +31,22 @@ namespace TestDataBase.Model
         public override int InsertRow(DbRecord record)
         {
             NpgsqlConnection con = new NpgsqlConnection(connection);
+            //    NpgsqlTransaction tranc = con.BeginTransaction();
             try
             {
                 con.Open();
+                //   for (int r = 0; r < 50000; r++)
+                //  {
                 con.Execute("INSERT INTO messages(Message) VALUES(@Message)", record);
+                //   }
+                //   tranc.Commit();
             }
-            catch (Exception y) { return -1; }
+            catch (Exception) { return -1; }
             finally
             {
-                if (con != null)
-                    con.Dispose();
+
+                con.Dispose();
+                //      tranc.Dispose();
             }
             return 0;
         }
@@ -52,7 +58,7 @@ namespace TestDataBase.Model
             {
                 con = new NpgsqlConnection(connection);
                 con.Open();
-                con.Execute("UPDATE messages SET Message=@Message WHERE Id= @Id",record);  
+                con.Execute("UPDATE messages SET Message=@Message WHERE Id= @Id", record);
             }
             catch (NpgsqlException)
             {
